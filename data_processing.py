@@ -13,7 +13,6 @@ def img_proc(input_path, img_size, output_path):
     # Defining an image size and image channel
     # We are going to resize all our images to 128X128 size and since our images are colored images
     # We are setting our image channels to 3 (RGB)
-
     IMAGE_SIZE = img_size
     IMAGE_CHANNELS = 3
 
@@ -24,8 +23,10 @@ def img_proc(input_path, img_size, output_path):
 
     # Iterating over the images inside the directory and resizing them using Pillow's resize method.
     for filename in os.listdir(images_path):
-        path = os.path.join(images_path, filename)
-        image = Image.open(path).resize((IMAGE_SIZE, IMAGE_SIZE), Image.ANTIALIAS)
+        for file in os.listdir(images_path):
+            prepath = os.path.join(images_path, filename)
+            path = os.path.join(prepath, file)
+            image = Image.open(path).resize((IMAGE_SIZE, IMAGE_SIZE), Image.ANTIALIAS)
 
         training_data.append(np.asarray(image))
 
